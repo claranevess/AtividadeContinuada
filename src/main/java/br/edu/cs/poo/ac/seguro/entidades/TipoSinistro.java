@@ -29,6 +29,6 @@ public enum TipoSinistro() {
     }
 
     public static TipoSinistro getTipoSinistro(int codigo) {
-        //return ;
+        return null;
     }
 }
