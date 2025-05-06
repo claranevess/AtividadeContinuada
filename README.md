@@ -9,3 +9,6 @@ IDE: IntelliJ IDEA
 Gerenciador de Dependências: Maven
 
 ## Contribuidores
+<a href="https://github.com/claranevess/AtividadeContinuada/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=claranevess/AtividadeContinuada" />
+</a>
