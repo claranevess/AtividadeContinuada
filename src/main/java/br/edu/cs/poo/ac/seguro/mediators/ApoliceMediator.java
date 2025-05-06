@@ -18,11 +18,19 @@ import br.edu.cs.poo.ac.seguro.entidades.Veiculo;
 import br.edu.cs.poo.ac.seguro.entidades.Segurado; //para usar bonus
 
 public class ApoliceMediator {
-    private SeguradoPessoaDAO daoSegPes;
-    private SeguradoEmpresaDAO daoSegEmp;
-    private VeiculoDAO daoVel;
-    private ApoliceDAO daoApo;
-    private SinistroDAO daoSin;
+    private SeguradoPessoaDAO daoSegPes = new SeguradoPessoaDAO();
+    private SeguradoEmpresaDAO daoSegEmp = new SeguradoEmpresaDAO();
+    private VeiculoDAO daoVel = new VeiculoDAO();
+    private ApoliceDAO daoApo = new ApoliceDAO();
+    private SinistroDAO daoSin = new SinistroDAO();
+
+    private static ApoliceMediator instancia = new ApoliceMediator();
+
+    private ApoliceMediator() {}
+
+    public static ApoliceMediator getInstancia() {
+        return instancia;
+    }
 
     private String numeroApolice(DadosVeiculo dados){
         String cpfOuCnpj = dados.getCpfOuCnpj();
@@ -131,29 +139,33 @@ public class ApoliceMediator {
      * Ver os testes test19 e test20
      */
     public Apolice buscarApolice(String numero) {
-        return null;
+        return daoApo.buscar(numero);
     }
-    /*
-     * A exclusão não é permitida quando:
-     * 1- O número for nulo ou branco.
-     * 2- Não existir apólice com o número recebido.
-     * 3- Existir sinistro cadastrado no mesmo ano
-     *    da apólice (comparar ano da data e hora do sinistro
-     *    com ano da data de início de vigência da apólice)
-     *    para o mesmo veículo (comparar o veículo do sinistro
-     *    com o veículo da apólice usando equals na classe veículo,
-     *    que deve ser implementado). Para obter os sinistros
-     *    cadastrados, usar o método buscarTodos do dao de sinistro,
-     *    implementado para contempar a questão da bonificação
-     *    no método de incluir apólice.
-     *    É possível usar LOMBOK para implementação implicita do
-     *    equals na classe Veiculo.
-     */
+
     public String excluirApolice(String numero) {
+        if (numero == null || numero.isBlank()) {
+            return "Número inválido.";
+        }
 
+        Apolice apolice = daoApo.buscar(numero);
+        if (apolice == null) {
+            return "Apólice inexistente.";
+        }
 
+        Veiculo veiculo = daoVel.buscar(apolice.getPlacaVeiculo());
+        Sinistro[] sinistros = daoSin.buscarTodos();
+        int anoApolice = apolice.getDataInicioVigencia().getYear();
+
+        for (Sinistro s : sinistros) {
+            if (s.getVeiculo().equals(veiculo) && s.getDataHora().getYear() == anoApolice) {
+                return "Existe sinistro no ano da apólice para o mesmo veículo.";
+            }
+        }
+
+        daoApo.excluir(numero);
         return null;
     }
+
     /*
      * Daqui para baixo estão SUGESTÕES de métodos que propiciariam
      * mais reuso e organização de código.
