@@ -9,6 +9,7 @@ import br.edu.cs.poo.ac.seguro.entidades.Sinistro;
 import br.edu.cs.poo.ac.seguro.entidades.Veiculo;
 import br.edu.cs.poo.ac.seguro.entidades.CategoriaVeiculo;
 import br.edu.cs.poo.ac.seguro.entidades.TipoSinistro;
+import br.edu.cs.poo.ac.seguro.entidades.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class TesteSinistroDAO extends TesteDAO {
 		LocalDateTime dataHoraRegistro = LocalDateTime.now();
 		BigDecimal valorSinistro = new BigDecimal("5000.00");
 		String numero = "00000000";
-		cadastro.incluir(new Sinistro(numero, 2000, null, null, TipoSinistro.BASICO), numero);
+		cadastro.incluir(new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, null, valorSinistro, TipoSinistro.COLISAO), numero);
 		Sinistro s = dao.buscar(numero);
 		Assertions.assertNotNull(s); 
 	}
@@ -37,7 +38,7 @@ public class TesteSinistroDAO extends TesteDAO {
 		LocalDateTime dataHoraRegistro = LocalDateTime.now();
 		BigDecimal valorSinistro = new BigDecimal("5000.00");
 		String numero = "10000000";
-		cadastro.incluir(new Sinistro(numero, 2001, null, null, TipoSinistro.BASICO), numero);
+		cadastro.incluir(new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, null, valorSinistro, TipoSinistro.COLISAO), numero);
 		Sinistro s = dao.buscar("11000000");
 		Assertions.assertNull(s);
 	}
@@ -48,7 +49,7 @@ public class TesteSinistroDAO extends TesteDAO {
 		LocalDateTime dataHoraRegistro = LocalDateTime.now();
 		BigDecimal valorSinistro = new BigDecimal("5000.00");
 		String numero = "20000000";
-		cadastro.incluir(new Sinistro(numero, 2002, null, null, TipoSinistro.BASICO), numero);
+		cadastro.incluir(new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, null, valorSinistro, TipoSinistro.COLISAO), numero);
 		boolean ret = dao.excluir(numero);
 		Assertions.assertTrue(ret);
 	}
@@ -59,7 +60,7 @@ public class TesteSinistroDAO extends TesteDAO {
 		LocalDateTime dataHoraRegistro = LocalDateTime.now();
 		BigDecimal valorSinistro = new BigDecimal("5000.00");
 		String numero = "30000000";
-		cadastro.incluir(new Sinistro(numero, 2003, null, null, TipoSinistro.BASICO), numero);
+		cadastro.incluir(new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, null, valorSinistro, TipoSinistro.COLISAO), numero);
 		boolean ret = dao.excluir("31000000");
 		Assertions.assertFalse(ret);
 	}
@@ -74,7 +75,7 @@ public class TesteSinistroDAO extends TesteDAO {
     BigDecimal valorSinistro = new BigDecimal("5000.00");
     
     // Criando o sinistro
-    Sinistro sinistro = new Sinistro(valorSinistro, veiculo, dataHoraSinistro, dataHoraRegistro, "usuario.teste", TipoSinistro.COLISAO);
+    Sinistro sinistro = new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, "usuario.teste", valorSinistro, TipoSinistro.COLISAO);
     
     // Como o construtor não define o número, precisamos usar o setter
     sinistro.setNumero(numero);
@@ -91,11 +92,12 @@ public class TesteSinistroDAO extends TesteDAO {
 	
 	@Test
 	public void teste06() { //incluir um Sinistro já existente retorna falso
-	
+		LocalDateTime dataHoraSinistro = LocalDateTime.now();
 		LocalDateTime dataHoraRegistro = LocalDateTime.now();
 		BigDecimal valorSinistro = new BigDecimal("5000.00");
-		String numero = "50000000";		
-		Sinistro s = new Sinistro(numero, 2005, null, null, TipoSinistro.BASICO);
+		String numero = "50000000";
+		Veiculo veiculo = new Veiculo("ABC1234", 2020, null, null, CategoriaVeiculo.BASICO);
+		Sinistro s = new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, null, valorSinistro, TipoSinistro.COLISAO);
 		cadastro.incluir(s, numero);
 		boolean ret = dao.incluir(s);
 		Assertions.assertFalse(ret);
@@ -103,11 +105,11 @@ public class TesteSinistroDAO extends TesteDAO {
 	@Test
 	public void teste07() { // alterar um Sinistro inexistente retorna falso
 		LocalDateTime dataHoraSinistro = LocalDateTime.now();
-
+		Veiculo veiculo = new Veiculo("ABC1234", 2020, null, null, CategoriaVeiculo.BASICO);
 		LocalDateTime dataHoraRegistro = LocalDateTime.now();
 		BigDecimal valorSinistro = new BigDecimal("5000.00");
 		String numero = "60000000";			
-		boolean ret = dao.alterar(new Sinistro(numero, 2006, null, null, TipoSinistro.BASICO));		
+		boolean ret = dao.alterar(new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, null,valorSinistro, TipoSinistro.COLISAO));
 		Assertions.assertFalse(ret);
 		Sinistro s = dao.buscar(numero);
 		Assertions.assertNull(s);		
@@ -116,14 +118,13 @@ public class TesteSinistroDAO extends TesteDAO {
 	@Test
 	public void teste08() { //alterar um Sinistro existente
 		LocalDateTime dataHoraSinistro = LocalDateTime.now();
-
-	
 		LocalDateTime dataHoraRegistro = LocalDateTime.now();
 		BigDecimal valorSinistro = new BigDecimal("5000.00");
-		String numero = "70000000";			
-		Sinistro s = new Sinistro(numero, 2007, null, null, TipoSinistro.BASICO);
+		String numero = "70000000";
+		Veiculo veiculo = new Veiculo("ABC1234", 2020, null, null, CategoriaVeiculo.BASICO);
+		Sinistro s = new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, null, valorSinistro, TipoSinistro.COLISAO);
 		cadastro.incluir(s, numero);
-		s = new Sinistro(numero, 2008, null, null, CategoriaSinistro.ESPORTIVO);
+		s = new Sinistro(numero, veiculo, dataHoraSinistro, dataHoraRegistro, null, valorSinistro, TipoSinistro.DEPREDACAO);
 		boolean ret = dao.alterar(s);
 		Assertions.assertTrue(ret);
 	}

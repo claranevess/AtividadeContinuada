@@ -3,19 +3,8 @@ package br.edu.cs.poo.ac.seguro.mediators;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import br.edu.cs.poo.ac.seguro.daos.ApoliceDAO;
-import br.edu.cs.poo.ac.seguro.daos.SeguradoEmpresaDAO;
-import br.edu.cs.poo.ac.seguro.daos.SeguradoPessoaDAO;
-import br.edu.cs.poo.ac.seguro.daos.SinistroDAO;
-import br.edu.cs.poo.ac.seguro.daos.VeiculoDAO;
-import br.edu.cs.poo.ac.seguro.entidades.Apolice;
-import br.edu.cs.poo.ac.seguro.entidades.CategoriaVeiculo;
-import br.edu.cs.poo.ac.seguro.entidades.PrecoAno;
-import br.edu.cs.poo.ac.seguro.entidades.SeguradoEmpresa;
-import br.edu.cs.poo.ac.seguro.entidades.SeguradoPessoa;
-import br.edu.cs.poo.ac.seguro.entidades.Sinistro;
-import br.edu.cs.poo.ac.seguro.entidades.Veiculo;
-import br.edu.cs.poo.ac.seguro.entidades.Segurado; //para usar bonus
+import br.edu.cs.poo.ac.seguro.daos.*;
+import br.edu.cs.poo.ac.seguro.entidades.*;
 
 public class ApoliceMediator {
     private SeguradoPessoaDAO daoSegPes = new SeguradoPessoaDAO();
@@ -25,8 +14,6 @@ public class ApoliceMediator {
     private SinistroDAO daoSin = new SinistroDAO();
 
     private static ApoliceMediator instancia = new ApoliceMediator();
-
-    private ApoliceMediator() {}
 
     public static ApoliceMediator getInstancia() {
         return instancia;
@@ -166,14 +153,6 @@ public class ApoliceMediator {
         return null;
     }
 
-    /*
-     * Daqui para baixo estão SUGESTÕES de métodos que propiciariam
-     * mais reuso e organização de código.
-     * Eles poderiam ser chamados pelo método de inclusão de apólice.
-     * Mas...é apenas uma sugestão. Vocês podem fazer o código da
-     * maneira que acharem pertinente.
-     */
-
     /*Após validar a nulidade de dados e da placa, fazer a busca do veículo por placa.
       Se o veículo não existir, realizar todas as valiações pertinentes
       Se o veículo existir, realizar as validações de cpf/cnpj e de valor máximo, e a verificação
@@ -198,9 +177,9 @@ public class ApoliceMediator {
 
         return null;
     }
-    //private BigDecimal obterValorMaximoPermitido(int ano, int codigoCat) {
-        //return null;
-    //}
+    private BigDecimal obterValorMaximoPermitido(int ano, int codigoCat) {
+        return null;
+    }
 
     private BigDecimal calcularPremio(Apolice dadosApolice, SeguradoEmpresa indicadorLocadora, DadosVeiculo dados, Segurado dadosSegurado){
         BigDecimal valorMaximoSegurado = dadosApolice.getValorMaximoSegurado();

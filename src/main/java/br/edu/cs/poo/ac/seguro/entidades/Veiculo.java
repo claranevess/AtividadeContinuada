@@ -2,9 +2,12 @@ package br.edu.cs.poo.ac.seguro.entidades;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
+import java.io.Serializable;
 
 @Data
-public class Veiculo {
+public class Veiculo implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     private String placa;
     private int ano;
     private SeguradoEmpresa proprietarioEmpresa;

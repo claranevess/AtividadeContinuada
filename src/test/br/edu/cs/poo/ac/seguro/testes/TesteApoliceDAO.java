@@ -2,19 +2,35 @@ package br.edu.cs.poo.ac.seguro.testes;
 
 import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import br.edu.cs.poo.ac.seguro.entidades.*;
+import br.edu.cs.poo.ac.seguro.daos.*;
 
-public class ApoliceTest {
+public class TesteApoliceDAO extends TesteDAO {
+    private ApoliceDAO dao = new ApoliceDAO();
+    private VeiculoDAO daoV = new VeiculoDAO();
+    //traz os DAOS que vão ser utilizados nos testes
+
+    protected Class getClasse() {
+        return br.edu.cs.poo.ac.seguro.entidades.Apolice.class;
+    }
+    //"Ei, TesteDAO, a entidade que esse teste vai manipular é Apolice.class."
+
+    String placa = "0000";
+    Veiculo veiculo = new Veiculo(placa, 2000, null, null, CategoriaVeiculo.BASICO);
+    String numero = "000";
+    LocalDate dataInicio = LocalDate.now();
+    BigDecimal franquia = new BigDecimal("1000.00");
+    BigDecimal premio = new BigDecimal("500.00");
+    BigDecimal maximo = new BigDecimal("30000.00");
 
     @Test
-    public void deveCriarApoliceComValores() {
-        Veiculo veiculo = new Veiculo();
-        BigDecimal franquia = new BigDecimal("1000.00");
-        BigDecimal premio = new BigDecimal("500.00");
-        BigDecimal maximo = new BigDecimal("30000.00");
+    public void test01() {
 
-        Apolice apolice = new Apolice(veiculo, franquia, premio, maximo);
+        Apolice apolice = new Apolice(numero, veiculo, franquia, premio, maximo, dataInicio);
 
         assertEquals(veiculo, apolice.getVeiculo());
         assertEquals(franquia, apolice.getValorFranquia());
@@ -23,25 +39,25 @@ public class ApoliceTest {
     }
 
     @Test
-    public void deveSetarEObterNumero() {
-        Apolice apolice = new Apolice(null, null, null, null);
+    public void teste02() {
+        Apolice apolice = new Apolice(numero,null, null, null, null, dataInicio);
         apolice.setNumero("AP123");
 
         assertEquals("AP123", apolice.getNumero());
     }
 
     @Test
-    public void deveSetarEObterVeiculo() {
-        Apolice apolice = new Apolice(null, null, null, null);
-        Veiculo veiculo = new Veiculo();
+    public void teste03() {
+        Apolice apolice = new Apolice(numero, null, null, null, null, dataInicio);
+        Veiculo veiculo = new Veiculo(placa, 2000, null, null, CategoriaVeiculo.BASICO);
         apolice.setVeiculo(veiculo);
 
         assertEquals(veiculo, apolice.getVeiculo());
     }
 
     @Test
-    public void deveSetarEObterValorFranquia() {
-        Apolice apolice = new Apolice(null, null, null, null);
+    public void teste04() {
+        Apolice apolice = new Apolice(numero,null, null, null, null, dataInicio);
         BigDecimal franquia = new BigDecimal("1200.00");
         apolice.setValorFranquia(franquia);
 
@@ -49,8 +65,8 @@ public class ApoliceTest {
     }
 
     @Test
-    public void deveSetarEObterValorPremio() {
-        Apolice apolice = new Apolice(null, null, null, null);
+    public void teste05() {
+        Apolice apolice = new Apolice(numero, null, null, null, null, dataInicio);
         BigDecimal premio = new BigDecimal("450.00");
         apolice.setValorPremio(premio);
 
@@ -58,8 +74,8 @@ public class ApoliceTest {
     }
 
     @Test
-    public void deveSetarEObterValorMaximoSegurado() {
-        Apolice apolice = new Apolice(null, null, null, null);
+    public void teste06() {
+        Apolice apolice = new Apolice(numero, null, null, null, null, dataInicio);
         BigDecimal maximo = new BigDecimal("50000.00");
         apolice.setValorMaximoSegurado(maximo);
 
@@ -67,11 +83,11 @@ public class ApoliceTest {
     }
 
     @Test
-    public void deveAlterarAtributosDepoisDoConstrutor() {
-        Veiculo veiculoInicial = new Veiculo();
-        Apolice apolice = new Apolice(veiculoInicial, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+    public void teste07() {
+        Veiculo veiculoInicial = new Veiculo(placa, 2000, null, null, CategoriaVeiculo.BASICO);
+        Apolice apolice = new Apolice(numero, veiculoInicial, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, dataInicio);
 
-        Veiculo novoVeiculo = new Veiculo();
+        Veiculo novoVeiculo = new Veiculo(placa, 2000, null, null, CategoriaVeiculo.BASICO);
         apolice.setVeiculo(novoVeiculo);
         apolice.setValorFranquia(new BigDecimal("1500.00"));
         apolice.setValorPremio(new BigDecimal("700.00"));
@@ -86,8 +102,8 @@ public class ApoliceTest {
     }
 
     @Test
-    public void deveAceitarValoresNulos() {
-        Apolice apolice = new Apolice(null, null, null, null);
+    public void teste08() {
+        Apolice apolice = new Apolice(numero, null, null, null, null, dataInicio);
 
         assertNull(apolice.getVeiculo());
         assertNull(apolice.getValorFranquia());
