@@ -20,19 +20,19 @@ public class Endereco {
     }
 
 
-    public String getlogradouro() {
+    public String getLogradouro() {
         return logradouro;
     }
 
-    public String getcep() {
+    public String getCep() {
         return cep;
     }
 
-    public String getnumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public String getcomplemento() {
+    public String getComplemento() {
         return complemento;
     }
 

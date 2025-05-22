@@ -19,35 +19,45 @@ public class SeguradoEmpresa extends Segurado {
         return cnpj;
     }
     
-    public double getfaturamento() {
+    public double getFaturamento() {
         return faturamento;
     }
     
-    public boolean getehLocadoraDeVeiculos() {
+    public boolean getEhLocadoraDeVeiculos() {
         return ehLocadoraDeVeiculos;
     }
-    
-    public void setcnpj(String cnpj){
+
+    public boolean isEhLocadoraDeVeiculos() {
+        return ehLocadoraDeVeiculos;
+    }
+
+
+    public void setCnpj(String cnpj){
         this.cnpj = cnpj;
     }
     
-    public void setfaturamento(double faturamento){
+    public void setFaturamento(double faturamento){
         this.faturamento = faturamento;
     }
     
-    public void setehLocadoraDeVeiculos(boolean ehLocadoraDeVeiculos){
+    public void setEhLocadoraDeVeiculos(boolean ehLocadoraDeVeiculos){
         this.ehLocadoraDeVeiculos = ehLocadoraDeVeiculos;
     }
     
     public LocalDate getDataAbertura(){
-        return this.getdataCriacao();
+        return this.getDataCriacao();
     }
     
     public void setDataAbertura(LocalDate dataAbertura){
-        this.setdataCriacao(dataAbertura); /*basicamente dataAbertura não existe como
+        this.setDataCriacao(dataAbertura); /*basicamente dataAbertura não existe como
         atributo, é só um outro nome pra dataCriacao. aí, pra acessar em outro código que
         não o próprio de criação, tem que repetir o método (set / get) e colocar
         como parâmetro o nome que o atributo tem nesse código de agora*/
+    }
+
+    @Override
+    public String getIdUnico() {
+        return cnpj;
     }
 }
 

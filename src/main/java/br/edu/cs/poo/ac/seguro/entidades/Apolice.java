@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import java.io.Serializable;
 
 @Data
-public class Apolice implements Serializable {
+public class Apolice implements Registro {
     private static final long serialVersionUID = 1L;
 
     private String numero;
@@ -16,6 +16,7 @@ public class Apolice implements Serializable {
     private BigDecimal valorPremio;
     private BigDecimal valorMaximoSegurado;
     private LocalDate dataInicioVigencia;
+    private String idUnico;
 
     public Apolice(String numero, Veiculo veiculo, BigDecimal valorFranquia, BigDecimal valorPremio, BigDecimal valorMaximoSegurado, LocalDate dataInicioVigencia) {
 		this.numero = numero;
@@ -25,4 +26,13 @@ public class Apolice implements Serializable {
         this.valorMaximoSegurado = valorMaximoSegurado;
         this.dataInicioVigencia = dataInicioVigencia;
 }
+
+    public Apolice(String idUnico) {
+        this.idUnico = idUnico;
+    }
+
+    @Override
+    public String getIdUnico() {
+        return numero;
+    }
 }

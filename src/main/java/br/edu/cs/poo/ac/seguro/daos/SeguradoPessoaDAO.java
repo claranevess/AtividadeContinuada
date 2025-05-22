@@ -1,43 +1,26 @@
 package br.edu.cs.poo.ac.seguro.daos;
 
-import br.edu.cesarschool.next.oo.persistenciaobjetos.CadastroObjetos;
 import br.edu.cs.poo.ac.seguro.entidades.SeguradoPessoa;
 
-import java.io.Serializable;
+public class SeguradoPessoaDAO extends SeguradoDAO {
 
-/*
- * As classes Segurado e SeguradoPessoa devem implementar Serializable.
- */
-public class SeguradoPessoaDAO extends DAOGenerico {
     public SeguradoPessoaDAO() {
-        cadastro = new CadastroObjetos(SeguradoPessoa.class);
-    }
-    public SeguradoPessoa buscar(String cpf) {
-        return (SeguradoPessoa)cadastro.buscar(cpf);
-    }
-    public boolean incluir(SeguradoPessoa segurado) {
-        if (buscar(segurado.getCpf()) != null) {
-            return false;
-        } else {
-            cadastro.incluir(segurado, segurado.getCpf());
-            return true;
-        }
-    }
-    public boolean alterar(SeguradoPessoa segurado) {
-        if (buscar(segurado.getCpf()) == null) {
-            return false;
-        } else {
-            cadastro.alterar(segurado, segurado.getCpf());
-            return true;
-        }
-    }
-    public boolean excluir(String cpf) {
-        if (buscar(cpf) == null) {
-            return false;
-        } else {
-            cadastro.excluir(cpf);
-            return true;
-        }
+        super(SeguradoPessoa.class);
     }
 
+    public SeguradoPessoa buscar(String cpf) {
+        return (SeguradoPessoa) super.buscar(cpf);
+    }
+
+    public boolean incluir(SeguradoPessoa segurado) {
+        return super.incluir(segurado, segurado.getCpf());
+    }
+
+    public boolean alterar(SeguradoPessoa segurado) {
+        return super.alterar(segurado, segurado.getCpf());
+    }
+
+    public boolean excluir(String cpf) {
+        return super.excluir(cpf);
+    }
 }

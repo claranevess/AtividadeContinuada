@@ -7,9 +7,7 @@ import java.io.Serializable;
 
 @Data
 
-public class Sinistro implements Serializable{
-    private static final long serialVersionUID = 1L;
-
+public class Sinistro implements Registro{
     private String numero;
     private Veiculo veiculo;
     private LocalDateTime dataHoraSinistro;
@@ -17,14 +15,25 @@ public class Sinistro implements Serializable{
     private String usuarioRegistro;
     private BigDecimal valorSinistro;
     private TipoSinistro tipo;
+    private int sequencial;
+    private String numeroApolice;
+    private String idUnico;
 
-    public Sinistro(String numero, Veiculo veiculo, LocalDateTime dataHoraSinistro, LocalDateTime dataHoraRegistro, String usuarioRegistro, BigDecimal valorSinistro, TipoSinistro tipo) {
-		this.numero = numero;
+    public Sinistro(BigDecimal valorSinistro,Veiculo veiculo,LocalDateTime dataHoraSinistro,LocalDateTime dataHoraRegistro,String usuarioRegistro,TipoSinistro tipo) {
         this.veiculo= veiculo;
         this.dataHoraSinistro=dataHoraSinistro;
         this.dataHoraRegistro=dataHoraRegistro;
         this.usuarioRegistro=usuarioRegistro;
         this.valorSinistro=valorSinistro;
         this.tipo=tipo;
-}
+    }
+
+    public Sinistro(String idUnico) {
+        this.idUnico = idUnico;
+    }
+
+    @Override
+    public String getIdUnico() {
+        return numero;
+    }
 }

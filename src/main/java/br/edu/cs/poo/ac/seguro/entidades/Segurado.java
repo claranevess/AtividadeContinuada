@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.io.Serializable;
 import java.time.Period;
 
-public class Segurado implements Serializable{
+public class Segurado implements Registro{
 
     private static final long serialVersionUID = 1L;
 
@@ -13,6 +13,7 @@ public class Segurado implements Serializable{
     private Endereco endereco;
     private LocalDate dataCriacao;
     private BigDecimal bonus;
+    private String idUnico;
 
     public Segurado(Endereco endereco, String nome, LocalDate dataCriacao, BigDecimal bonus) {
         super();
@@ -23,19 +24,19 @@ public class Segurado implements Serializable{
     }
 
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
-    public Endereco getendereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    protected LocalDate getdataCriacao() {
+    protected LocalDate getDataCriacao() {
         return dataCriacao;
     }
 
-    protected void setdataCriacao(LocalDate dataCriacao) {
+    protected void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
@@ -53,5 +54,14 @@ public class Segurado implements Serializable{
 
     public void debitarBonus(BigDecimal valor) {
         bonus = bonus.subtract(valor);
+    }
+
+    public Segurado(String idUnico) {
+        this.idUnico = idUnico;
+    }
+
+    @Override
+    public String getIdUnico() {
+        return idUnico;
     }
 }

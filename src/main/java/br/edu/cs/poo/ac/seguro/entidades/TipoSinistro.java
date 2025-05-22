@@ -1,6 +1,6 @@
 package br.edu.cs.poo.ac.seguro.entidades;
 
-public enum TipoSinistro() {
+public enum TipoSinistro {
     COLISAO(1,"Colisão"),
 
     INCENDIO(2,"Incêndio"),

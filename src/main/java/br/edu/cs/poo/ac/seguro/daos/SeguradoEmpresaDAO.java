@@ -2,18 +2,25 @@ package br.edu.cs.poo.ac.seguro.daos;
 
 import br.edu.cs.poo.ac.seguro.entidades.SeguradoEmpresa;
 
-public class SeguradoEmpresaDAO {
+public class SeguradoEmpresaDAO extends SeguradoDAO {
+
+    public SeguradoEmpresaDAO() {
+        super(SeguradoEmpresa.class);
+    }
 
     public SeguradoEmpresa buscar(String cnpj) {
-        return null;
+        return (SeguradoEmpresa) super.buscar(cnpj);
     }
+
     public boolean incluir(SeguradoEmpresa segurado) {
-        return false;
+        return super.incluir(segurado, segurado.getCnpj());
     }
+
     public boolean alterar(SeguradoEmpresa segurado) {
-        return false;
+        return super.alterar(segurado, segurado.getCnpj());
     }
+
     public boolean excluir(String cnpj) {
-        return false;
+        return super.excluir(cnpj);
     }
 }

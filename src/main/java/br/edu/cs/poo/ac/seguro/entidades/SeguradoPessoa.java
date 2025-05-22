@@ -34,13 +34,18 @@ public class SeguradoPessoa extends Segurado implements Serializable{
         this.renda = renda;
     }
 
-    public LocalDate getdataNascimento() {
-        return this.getdataCriacao(); //é uma boa prática quando for acessar atributos
+    public LocalDate getDataNascimento() {
+        return this.getDataCriacao(); //é uma boa prática quando for acessar atributos
         //de outras classes em um get / set usar this.getOQueEuQueriaRetornar();
     }
 
     public void setDataNascimento(LocalDate dataNascimento) {
-        this.setdataCriacao(dataNascimento);
+        this.setDataCriacao(dataNascimento);
+    }
+
+    @Override
+    public String getIdUnico() {
+        return cpf;
     }
 }
 
