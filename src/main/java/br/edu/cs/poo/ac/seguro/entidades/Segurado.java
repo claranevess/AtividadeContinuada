@@ -1,35 +1,42 @@
 package br.edu.cs.poo.ac.seguro.entidades;
 
-import java.time.LocalDate;
-import java.math.BigDecimal;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.Period;
 
-public class Segurado implements Registro{
+public abstract class Segurado implements Serializable, Registro {
 
-    private static final long serialVersionUID = 1L;
-
-    private String nome;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String nome;
     private Endereco endereco;
     private LocalDate dataCriacao;
     private BigDecimal bonus;
-    private String idUnico;
 
-    public Segurado(Endereco endereco, String nome, LocalDate dataCriacao, BigDecimal bonus) {
-        super();
+    public Segurado(String nome, Endereco endereco, LocalDate dataCriacao, BigDecimal bonus) {
         this.nome = nome;
         this.endereco = endereco;
-        this.bonus = bonus;
         this.dataCriacao = dataCriacao;
+        this.bonus = bonus;
     }
-
 
     public String getNome() {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public Endereco getEndereco() {
         return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     protected LocalDate getDataCriacao() {
@@ -45,23 +52,23 @@ public class Segurado implements Registro{
     }
 
     public int getIdade() {
-        return Period.between(this.dataCriacao,  LocalDate.now()).getYears();
+        return Period.between(this.dataCriacao, LocalDate.now()).getYears();
     }
 
     public void creditarBonus(BigDecimal valor) {
-        bonus = bonus.add(valor); //valores bigdecimal não usam operadores matemáticos, mas sim esses métodos de soma, substração, etc
+        if (valor.compareTo(BigDecimal.ZERO) > 0) {
+            this.bonus = this.bonus.add(valor);
+        }
     }
 
     public void debitarBonus(BigDecimal valor) {
-        bonus = bonus.subtract(valor);
+        if (this.bonus.compareTo(valor) >= 0) {
+            this.bonus = this.bonus.subtract(valor);
+        }
     }
-
-    public Segurado(String idUnico) {
-        this.idUnico = idUnico;
-    }
-
+    
+    public abstract boolean isEmpresa();
+    
     @Override
-    public String getIdUnico() {
-        return idUnico;
-    }
+    public abstract String getIdUnico();
 }

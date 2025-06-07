@@ -1,49 +1,30 @@
 package br.edu.cs.poo.ac.seguro.daos;
 
-import br.edu.cesarschool.next.oo.persistenciaobjetos.CadastroObjetos;
+import br.edu.cs.poo.ac.seguro.entidades.Registro;
 import br.edu.cs.poo.ac.seguro.entidades.Sinistro;
+import java.util.ArrayList; 
+import java.util.List;      
 
-import java.io.Serializable;
+public class SinistroDAO extends DAOGenerico<Sinistro> {
 
-public class SinistroDAO extends DAOGenerico {
-	public SinistroDAO() {
-		cadastro = new CadastroObjetos(Sinistro.class);
-	}
+    public SinistroDAO() {
+        super();
+    }
 
-	public Sinistro buscar(String numero) {
-		return (Sinistro)cadastro.buscar(numero);
-	}
+    @Override
+    public Class<Sinistro> getClasseEntidade() {
+        return Sinistro.class;
+    }
 
-	public boolean incluir(Sinistro sinistro) {
-		if (buscar(sinistro.getNumero()) != null) {
-			return false;
-		} else {
-			cadastro.incluir((Serializable) sinistro, sinistro.getNumero());
-			return true;
-		}
-	}
-	public boolean alterar(Sinistro sinistro) {
-		if (buscar(sinistro.getNumero()) == null) {
-			return false;
-		} else {
-			cadastro.alterar((Serializable) sinistro, sinistro.getNumero());
-			return true;
-		}
-	}
-	public boolean excluir(String numero) {
-		if (buscar(numero) == null) {
-			return false;
-		} else {
-			cadastro.excluir(numero);
-			return true;
-		}
-	}
-	public Sinistro[] buscarTodos() {
-		Object[] objetos = cadastro.buscarTodos();
-		Sinistro[] sinistros = new Sinistro[objetos.length];
-		for (int i = 0; i < objetos.length; i++) {
-			sinistros[i] = (Sinistro) objetos[i];
-		}
-		return sinistros;
-	}
+    public List<Sinistro> buscarTodosLista() {
+        Registro[] todosOsRegistros = super.buscarTodos(); 
+        List<Sinistro> listaSinistros = new ArrayList<>();
+        for (Registro reg : todosOsRegistros) {
+            if (reg instanceof Sinistro) { 
+                listaSinistros.add((Sinistro) reg);
+            }
+        }
+        return listaSinistros;
+    }
+   
 }

@@ -1,10 +1,9 @@
 package br.edu.cs.poo.ac.seguro.testes;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import br.edu.cs.poo.ac.seguro.entidades.Endereco;
@@ -17,7 +16,7 @@ public class TesteSeguradoMediator {
     public void teste00() {
     	String msg = "Nome deve ser informado";
         String resultado = med.validarNome(" ");
-        assertEquals(msg, resultado);        
+        assertEquals(msg, resultado);
         resultado = med.validarNome(null);
         assertEquals(msg, resultado);
     }
@@ -25,7 +24,7 @@ public class TesteSeguradoMediator {
     public void teste01() {
         Endereco endereco = null;
         String resultado = med.validarEndereco(endereco);
-        assertEquals("Endereço deve ser informado", resultado);
+        assertEquals("Endereï¿½o deve ser informado", resultado);
     }
 
     @Test
@@ -75,7 +74,7 @@ public class TesteSeguradoMediator {
     public void teste06() {
         Endereco endereco = new Endereco("Rua A", "12345678", "10", "", "Brasil", "PE", "A".repeat(101));
         String resultado = med.validarEndereco(endereco);
-        assertEquals("Tamanho da cidade deve ser no máximo 100 caracteres", resultado);
+        assertEquals("Tamanho da cidade deve ser no mï¿½ximo 100 caracteres", resultado);
     }
 
     @Test
@@ -100,11 +99,11 @@ public class TesteSeguradoMediator {
     public void teste09() {
         Endereco endereco = new Endereco("Rua A", "12345678", " ", "", "A".repeat(41), "PE", "Recife");
         String resultado = med.validarEndereco(endereco);
-        assertEquals("Tamanho do país deve ser no máximo 40 caracteres", resultado);
+        assertEquals("Tamanho do paï¿½s deve ser no mï¿½ximo 40 caracteres", resultado);
     }
     @Test
     public void teste10() {
-    	String msg = "País deve ser informado";
+    	String msg = "Paï¿½s deve ser informado";
         Endereco endereco = new Endereco("Rua A", "12345678", null, "", " ", "PE", "Recife");
         String resultado = med.validarEndereco(endereco);
         assertEquals(msg, resultado);
@@ -116,13 +115,13 @@ public class TesteSeguradoMediator {
     public void teste11() {
         Endereco endereco = new Endereco("Rua A", "12345678", "1".repeat(22), null, "A", "PE", "Recife");
         String resultado = med.validarEndereco(endereco);
-        assertEquals("Tamanho do número deve ser no máximo 20 caracteres", resultado);    	
+        assertEquals("Tamanho do nï¿½mero deve ser no mï¿½ximo 20 caracteres", resultado);    	
     }
     @Test
     public void teste12() {
         Endereco endereco = new Endereco("Rua A", "12345678", "122", "A".repeat(32), "A", "PE", "Recife");
         String resultado = med.validarEndereco(endereco);
-        assertEquals("Tamanho do complemento deve ser no máximo 30 caracteres", resultado);    	
+        assertEquals("Tamanho do complemento deve ser no mï¿½ximo 30 caracteres", resultado);    	
     }
     @Test
     public void teste13() {
@@ -148,7 +147,7 @@ public class TesteSeguradoMediator {
     @Test
     public void teste15() {    	     
         String resultado = med.validarNome("A".repeat(122));
-        assertEquals("Tamanho do nome deve ser no máximo 100 caracteres", resultado);
+        assertEquals("Tamanho do nome deve ser no mï¿½ximo 100 caracteres", resultado);
     }
     @Test
     public void teste16() {    	     
@@ -158,12 +157,12 @@ public class TesteSeguradoMediator {
     @Test
     public void teste17() {    	     
         String resultado = med.validarDataCriacao(null);
-        assertEquals("Data da criação deve ser informada", resultado);
+        assertEquals("Data da criaï¿½ï¿½o deve ser informada", resultado);
     }
     @Test
     public void teste18() {    	     
         String resultado = med.validarDataCriacao(LocalDate.now().plusDays(1));
-        assertEquals("Data da criação deve ser menor ou igual à data atual", resultado);
+        assertEquals("Data da criaï¿½ï¿½o deve ser menor ou igual ï¿½ data atual", resultado);
     }
     @Test
     public void teste19() {    	     
@@ -181,3 +180,4 @@ public class TesteSeguradoMediator {
         assertEquals(valorDebito, bonusAjustado);        
     }
 }
+

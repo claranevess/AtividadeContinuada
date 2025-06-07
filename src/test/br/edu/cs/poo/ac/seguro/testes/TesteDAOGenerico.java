@@ -35,8 +35,8 @@ public class TesteDAOGenerico extends TesteMediator {
 		Assertions.assertTrue(new ApoliceDAO() instanceof DAOGenerico);
 		Assertions.assertTrue(new SinistroDAO() instanceof DAOGenerico);
 		Assertions.assertTrue(new VeiculoDAO() instanceof DAOGenerico);
-		SeguradoDAO seg = new SeguradoDAO() {			
-			public Class getClasseEntidade() {				
+		SeguradoDAO seg = new SeguradoDAO() {
+			public Class getClasseEntidade() {
 				return null;
 			}
 		};
@@ -44,7 +44,7 @@ public class TesteDAOGenerico extends TesteMediator {
 		Registro r = new Registro() {
 			public String getIdUnico() {
 				return null;
-			}			
+			}
 		};
 		Assertions.assertTrue(r instanceof Serializable);
 	}
